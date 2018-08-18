@@ -1,7 +1,8 @@
 RSpec.describe 'Authentications API' do
-  let(:provider) { FactoryGirl.create(:provider_ansible_tower) }
-  let(:auth) { FactoryGirl.create(:ansible_cloud_credential, :resource => provider) }
-  let(:auth_2) { FactoryGirl.create(:ansible_cloud_credential, :resource => provider) }
+  let(:tower_manager) { FactoryGirl.create(:automation_manager_ansible_tower) }
+  let(:provider) { FactoryGirl.create(:provider_ansible_tower, :managers => [tower_manager]) }
+  let(:auth) { FactoryGirl.create(:ansible_cloud_credential, :resource => tower_manager) }
+  let(:auth_2) { FactoryGirl.create(:ansible_cloud_credential, :resource => tower_manager) }
 
   describe 'GET/api/authentications' do
     it 'lists all the authentication configuration script bases with an appropriate role' do
